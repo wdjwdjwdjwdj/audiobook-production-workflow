@@ -1,6 +1,12 @@
 # 有声书生产工作流
 
-一个平台无关的有声书后期生产命令包，围绕四个 Slash Command 组织工作：
+一个平台无关的有声书生产工作流 MVP。当前已提供可运行的 Streamlit 工作台，主链路是：
+
+```text
+上传原文和音频 → /画本 → ASR → /审听 → 对轨结果和审听报告
+```
+
+同时保留四个 Slash Command 作为可迁移的工作流规范：
 
 - `/画本`：把原文拆成旁白、角色和特殊文本，并补充配音属性。
 - `/审听`：比较原文、ASR 转写和音频质量，输出带时间码的问题清单。
@@ -11,28 +17,60 @@
 
 AI 负责语义理解、分类、检索和建议；确定性工具负责转写、时间戳、波形分析、切分和导出。四个命令通过稳定的 `segment_id` 串联，避免每一步重新猜测上下文。
 
-本项目是工作流规范和命令模板，不绑定 Codex、Claude Code 或某个 Web 平台。可以把 `commands/` 下的文件转换成目标平台的 Slash Command，也可以由本地 CLI、n8n 或 Web Agent 调用。
+本项目不绑定 Codex、Claude Code 或某个 LLM 平台。`commands/` 下的文件可以转换成目标平台的 Slash Command；`audiobook/` 则提供本地 Python 执行引擎。
 
 ## 项目结构
 
 ```text
 有声书生产工作流/
 ├── commands/                 # 四个 Slash Command 模板
+├── audiobook/                # MVP 执行引擎和外部工具适配器
 ├── schemas/                  # 跨命令共享的 JSON 数据契约
 ├── examples/                 # 最小可运行示例数据
 ├── scripts/                  # 本地校验脚本
+├── tests/                    # 单元测试
+├── app.py                    # Streamlit Web 入口
+├── Dockerfile                # CPU 部署镜像
 ├── project.json              # 项目配置示例
 └── README.md
 ```
 
 ## 快速开始
 
-1. 复制 `project.json`，填写项目名称、章节和目录。
-2. 准备原文，并运行 `/画本` 生成带 `segment_id` 的结构化稿件。
-3. 将多个 MP3 和 ASR 结果放入项目目录，运行 `/审听` 检查内容和音质。
-4. 运行 `/对轨` 生成文本到音频的对应表和时间轴。
-5. 维护 `audio-assets.json` 资源索引，运行 `/后期` 生成 BGM/音效 cue 表。
-6. 用 `python scripts/validate_project.py .` 检查结构和跨文件引用。
+### 本地运行
+
+需要 Python 3.11、完整 FFmpeg 和可用的 `pip`：
+
+```powershell
+py -m pip install -e ".[dev]"
+Copy-Item .env.example .env
+py -m streamlit run app.py
+```
+
+首次运行会下载 faster-whisper 模型。没有配置 `LLM_API_KEY` 时，`/画本` 会使用规则降级模式；配置 OpenAI-compatible endpoint 后会进行 AI 角色和情绪标注。
+
+### Docker 运行
+
+```powershell
+docker build -t audiobook-production-workflow .
+docker run --rm -p 8501:8501 --env-file .env audiobook-production-workflow
+```
+
+### 测试和校验
+
+```powershell
+py -m pytest -q
+py scripts/validate_project.py .
+```
+
+### 工作台操作
+
+1. 上传 TXT/Markdown 原文。
+2. 上传一段一个 MP3，或上传一个章节长音频。
+3. 选择“自动判断”或明确指定音频组织方式。
+4. 点击“运行画本与审听”。
+5. 在“画本结果”“审听结果”“对轨结果”中复核。
+6. 下载 JSON、CSV、Markdown 或完整 ZIP 项目包。
 
 ## 推荐的数据流
 
@@ -67,12 +105,14 @@ AI 负责语义理解、分类、检索和建议；确定性工具负责转写�
 
 ## 典型工具边界
 
-可由目标平台接入以下类型的工具：
+MVP 已接入以下类型的工具：
 
 - `ffmpeg`：格式转换、响度分析、切分、混音和导出。
-- ASR 引擎：生成带 segment/word timestamps 的转写。
-- forced alignment：在已有原文时提升文本—音频时间定位精度。
-- SQLite/JSON 索引：检索本地 BGM、音效和授权信息。
+- `faster-whisper`：生成带 segment/word timestamps 的中文转写。
+- OpenAI-compatible LLM：生成 AI 画本；无 Key 时使用规则降级模式。
+- 字符级顺序匹配：实现长音频的句子级对轨。
+
+Qwen3 ForcedAligner、Charsiu、WhisperX 和本地资源库检索暂时保留为后续适配点。
 
 工具名称只是实现建议，命令模板本身不依赖某个供应商。
 
@@ -86,4 +126,6 @@ python scripts/validate_project.py .
 
 ## 当前版本边界
 
-当前版本提供工作流契约、命令模板和示例数据；尚未绑定具体 ASR、forced alignment 或 DAW 导出适配器。这样可以先确认项目的生产规则，再根据实际音频样本选择工具链。
+当前版本已完成画本、ASR、审听、句子级对轨和导出 MVP；尚未实现 BGM 自动检索、复杂 DAW 时间轴、账号系统、任务队列和长期音频存储。
+
+上传文件只写入当前 Streamlit 会话的临时目录。请不要把真实 MP3、原文或 `.env` 提交到公开仓库。
