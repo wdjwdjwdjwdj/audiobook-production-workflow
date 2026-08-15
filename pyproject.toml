@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audiobook-production-workflow"
+version = "0.2.0"
+description = "MVP workflow for audiobook scripting and audio review"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "faster-whisper>=1.1.0",
+  "pydantic>=2.0",
+  "python-dotenv>=1.0",
+  "streamlit>=1.45",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["audiobook*"]
