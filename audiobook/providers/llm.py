@@ -9,6 +9,8 @@ import urllib.error
 import urllib.request
 from typing import Any
 
+from dotenv import load_dotenv
+
 from audiobook.pipeline.script import fallback_annotate, normalize_llm_segments
 
 
@@ -78,6 +80,7 @@ def _extract_json(content: str) -> dict[str, Any]:
 
 
 def provider_from_env() -> OpenAICompatibleLLM:
+    load_dotenv()
     return OpenAICompatibleLLM(
         base_url=os.getenv("LLM_BASE_URL", "https://api.openai.com/v1"),
         api_key=os.getenv("LLM_API_KEY", ""),
