@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/audiobook/post-cue.schema.json",
+  "title": "Audiobook Postproduction Cue",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["cue_id", "segment_id", "asset_id", "start", "end", "ducking_db", "status", "reason"],
+  "properties": {
+    "cue_id": { "type": "string" },
+    "segment_id": { "type": "string" },
+    "asset_id": { "type": "string" },
+    "start": { "type": "number", "minimum": 0 },
+    "end": { "type": "number", "exclusiveMinimum": 0 },
+    "fade_in_ms": { "type": "integer", "minimum": 0 },
+    "fade_out_ms": { "type": "integer", "minimum": 0 },
+    "ducking_db": { "type": "number", "maximum": 0 },
+    "loop": { "type": "boolean" },
+    "status": { "enum": ["candidate", "approved", "review_required", "no_match", "rejected"] },
+    "review_required": { "type": "boolean" },
+    "reason": { "type": "string", "minLength": 1 }
+  }
+}

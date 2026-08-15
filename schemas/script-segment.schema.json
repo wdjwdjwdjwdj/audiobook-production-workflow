@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/audiobook/script-segment.schema.json",
+  "title": "Audiobook Script Segment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["segment_id", "type", "speaker", "text", "emotion", "pace", "review_required"],
+  "properties": {
+    "segment_id": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$" },
+    "type": { "enum": ["narration", "dialogue", "inner_voice", "reading", "sound_direction", "music_direction"] },
+    "speaker": { "type": "string" },
+    "text": { "type": "string", "minLength": 1 },
+    "emotion": { "type": "string" },
+    "pace": { "enum": ["slow", "medium", "fast", "variable", "unknown"] },
+    "emphasis": { "type": "array", "items": { "type": "string" } },
+    "pause_before_ms": { "type": "integer", "minimum": 0 },
+    "pause_after_ms": { "type": "integer", "minimum": 0 },
+    "pronunciation_notes": { "type": "array", "items": { "type": "string" } },
+    "scene_tags": { "type": "array", "items": { "type": "string" } },
+    "sound_tags": { "type": "array", "items": { "type": "string" } },
+    "review_required": { "type": "boolean" },
+    "review_reason": { "type": "string" },
+    "suggestions": { "type": "array", "items": { "type": "string" } }
+  }
+}

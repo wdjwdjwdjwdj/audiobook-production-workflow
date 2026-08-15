@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/audiobook/review-issue.schema.json",
+  "title": "Audiobook Review Issue",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["issue_id", "segment_id", "issue_type", "severity", "confidence", "expected_text", "heard_text", "suggestion"],
+  "properties": {
+    "issue_id": { "type": "string" },
+    "segment_id": { "type": "string" },
+    "issue_type": { "enum": ["omission", "insertion", "replacement", "reorder", "pronunciation", "segmentation", "noise", "clipping", "silence", "cutoff", "other"] },
+    "severity": { "enum": ["blocker", "high", "medium", "low"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "audio_start": { "type": ["number", "null"], "minimum": 0 },
+    "audio_end": { "type": ["number", "null"], "minimum": 0 },
+    "timecode_status": { "enum": ["available", "unavailable", "estimated"] },
+    "expected_text": { "type": "string" },
+    "heard_text": { "type": "string" },
+    "suggestion": { "type": "string" },
+    "needs_human_relisten": { "type": "boolean" }
+  }
+}

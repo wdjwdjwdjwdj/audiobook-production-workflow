@@ -1,0 +1,39 @@
+{
+  "chapter_id": "chapter-01",
+  "segments": [
+    {
+      "segment_id": "ch01_001",
+      "type": "narration",
+      "speaker": "旁白",
+      "text": "雨下了一整夜。",
+      "emotion": "克制、略带忧郁",
+      "pace": "slow",
+      "pause_after_ms": 500,
+      "scene_tags": ["夜晚", "雨天"],
+      "sound_tags": ["雨声"],
+      "review_required": false
+    },
+    {
+      "segment_id": "ch01_002",
+      "type": "dialogue",
+      "speaker": "林默",
+      "text": "你终于来了。",
+      "emotion": "压抑后释然",
+      "pace": "medium",
+      "emphasis": ["终于"],
+      "pause_before_ms": 300,
+      "scene_tags": ["室内", "重逢"],
+      "review_required": false
+    },
+    {
+      "segment_id": "ch01_003",
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "对不起，我来晚了。",
+      "emotion": "愧疚",
+      "pace": "slow",
+      "review_required": true,
+      "review_reason": "原文缺少明确说话人，需要结合上下文确认。"
+    }
+  ]
+}

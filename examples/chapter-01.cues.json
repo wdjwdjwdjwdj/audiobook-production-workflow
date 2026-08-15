@@ -1,0 +1,19 @@
+{
+  "chapter_id": "chapter-01",
+  "cues": [
+    {
+      "cue_id": "cue_001",
+      "segment_id": "ch01_001",
+      "asset_id": "bgm_rain_01",
+      "start": 0.0,
+      "end": 9.41,
+      "fade_in_ms": 1200,
+      "fade_out_ms": 1800,
+      "ducking_db": -8,
+      "loop": true,
+      "status": "candidate",
+      "review_required": true,
+      "reason": "夜雨和忧郁场景匹配；需要确认是否遮盖角色对白。"
+    }
+  ]
+}

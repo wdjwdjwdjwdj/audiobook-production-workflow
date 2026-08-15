@@ -1,0 +1,28 @@
+{
+  "project_id": "demo-audiobook",
+  "title": "示例有声书",
+  "language": "zh-CN",
+  "version": "0.1.0",
+  "source_text": "source/",
+  "annotated_script": "script/",
+  "audio": "audio/",
+  "transcripts": "audio/transcript/",
+  "alignment": "alignment/",
+  "review": "review/",
+  "post": "post/",
+  "asset_library": "library/audio-assets.json",
+  "chapters": [
+    {
+      "chapter_id": "chapter-01",
+      "source": "source/chapter-01.txt",
+      "script": "examples/chapter-01.annotated.json",
+      "audio_files": [],
+      "status": "scripted"
+    }
+  ],
+  "quality_gates": {
+    "min_alignment_confidence": 0.85,
+    "require_human_review_below": 0.75,
+    "require_asset_license": true
+  }
+}

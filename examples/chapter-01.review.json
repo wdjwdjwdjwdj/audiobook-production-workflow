@@ -1,0 +1,19 @@
+{
+  "chapter_id": "chapter-01",
+  "issues": [
+    {
+      "issue_id": "issue_001",
+      "segment_id": "ch01_003",
+      "issue_type": "replacement",
+      "severity": "medium",
+      "confidence": 0.88,
+      "audio_start": 12.41,
+      "audio_end": 15.16,
+      "timecode_status": "available",
+      "expected_text": "对不起，我来晚了。",
+      "heard_text": "抱歉，我来晚了。",
+      "suggestion": "确认是否接受同义替换；若需严格按稿，安排补录。",
+      "needs_human_relisten": true
+    }
+  ]
+}

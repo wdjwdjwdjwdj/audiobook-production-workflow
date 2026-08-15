@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+dist/
+build/
+
+# Local media and generated exports
+audio/raw/
+audio/processed/
+exports/
+*.mp3
+*.wav
+*.m4a
+*.flac
+
+# Local secrets and platform state
+.env
+.env.*
+.DS_Store

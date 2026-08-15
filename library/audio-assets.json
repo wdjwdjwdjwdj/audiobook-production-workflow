@@ -1,0 +1,17 @@
+{
+  "assets": [
+    {
+      "asset_id": "bgm_rain_01",
+      "file": "library/bgm/rain-low-01.wav",
+      "type": "bgm",
+      "mood": ["忧郁", "孤独", "悬疑"],
+      "scene": ["夜晚", "雨天", "回忆"],
+      "intensity": 0.25,
+      "tempo": "slow",
+      "loopable": true,
+      "vocals": false,
+      "license": "internal",
+      "avoid_with": ["激烈对白"]
+    }
+  ]
+}

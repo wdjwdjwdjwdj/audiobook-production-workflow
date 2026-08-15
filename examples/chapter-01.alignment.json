@@ -1,0 +1,33 @@
+{
+  "chapter_id": "chapter-01",
+  "items": [
+    {
+      "segment_id": "ch01_001",
+      "audio_file": "audio/raw/ch01_001.mp3",
+      "start": 0.0,
+      "end": 3.42,
+      "match_type": "metadata",
+      "confidence": 0.99,
+      "status": "matched"
+    },
+    {
+      "segment_id": "ch01_002",
+      "audio_file": "audio/raw/ch01_002.mp3",
+      "start": 3.60,
+      "end": 6.28,
+      "match_type": "forced_alignment",
+      "confidence": 0.93,
+      "status": "matched"
+    },
+    {
+      "segment_id": "ch01_003",
+      "audio_file": "audio/raw/ch01_003.mp3",
+      "start": 6.46,
+      "end": 9.41,
+      "match_type": "forced_alignment",
+      "confidence": 0.71,
+      "status": "review_required",
+      "notes": "低于项目配置的对轨置信度阈值。"
+    }
+  ]
+}
