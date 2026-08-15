@@ -22,6 +22,10 @@ exports/
 *.m4a
 *.flac
 
+# Public smoke-test fixture
+!examples/test-materials/audio/
+!examples/test-materials/audio/*.wav
+
 # Local secrets and platform state
 .env
 .env.*
