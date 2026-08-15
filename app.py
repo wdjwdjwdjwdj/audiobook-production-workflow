@@ -6,6 +6,9 @@ import json
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def _read_uploaded_text(uploaded_file) -> str:
     raw = uploaded_file.getvalue()
