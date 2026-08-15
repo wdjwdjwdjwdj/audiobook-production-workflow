@@ -47,7 +47,27 @@ Copy-Item .env.example .env
 py -m streamlit run app.py
 ```
 
-首次运行会下载 faster-whisper 模型。没有配置 `LLM_API_KEY` 时，`/画本` 会使用规则降级模式；配置 OpenAI-compatible endpoint 后会进行 AI 角色和情绪标注。
+### 部署到 Streamlit Community Cloud
+
+仓库已提供 `requirements.txt` 和 `packages.txt`，分别用于安装 Python 依赖和 FFmpeg。
+打开 [Streamlit Community Cloud](https://share.streamlit.io/)，连接 GitHub 后选择：
+
+```text
+Repository: wdjwdjwdjwdj/audiobook-production-workflow
+Branch: main
+Main file path: app.py
+```
+
+部署后，在 App 的 Secrets 中按需配置 `LLM_API_KEY`、`LLM_BASE_URL` 和 `LLM_MODEL`。
+ASR 默认使用 `small + CPU + INT8`；模型会在云端首次运行时自动缓存，不要把本地 `.cache/` 上传到 GitHub。
+
+项目默认配置为 `small + CPU + INT8`，模型缓存位于项目下的 `.cache/huggingface/`。没有配置 `LLM_API_KEY` 时，`/画本` 会使用规则降级模式；配置 OpenAI-compatible endpoint 后会进行 AI 角色和情绪标注。
+
+如果模型尚未下载，可以先运行：
+
+```powershell
+py scripts/download_model.py
+```
 
 ### Docker 运行
 
