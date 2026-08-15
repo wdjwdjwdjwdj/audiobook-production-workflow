@@ -1,10 +1,17 @@
 __pycache__/
 *.pyc
+.pytest_cache/
+.streamlit/
+.job_data/
 .venv/
 venv/
 node_modules/
 dist/
 build/
+
+# Model caches
+.cache/
+hf_cache/
 
 # Local media and generated exports
 audio/raw/
@@ -18,4 +25,5 @@ exports/
 # Local secrets and platform state
 .env
 .env.*
+!.env.example
 .DS_Store
