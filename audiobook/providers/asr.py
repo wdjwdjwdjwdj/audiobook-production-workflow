@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
+
+from dotenv import load_dotenv
 
 from audiobook.domain.models import Transcript, TranscriptSegment
 
@@ -15,10 +18,13 @@ class ASRProvider:
 
 
 class FasterWhisperProvider(ASRProvider):
-    def __init__(self, model_size: str = "small", device: str = "cpu", compute_type: str | None = None):
-        self.model_size = model_size
-        self.device = device
-        self.compute_type = compute_type or ("int8" if device == "cpu" else "float16")
+    def __init__(self, model_size: str | None = None, device: str | None = None, compute_type: str | None = None):
+        load_dotenv()
+        self.model_size = model_size or os.getenv("ASR_MODEL", "small")
+        self.device = device or os.getenv("ASR_DEVICE", "cpu")
+        self.compute_type = compute_type or os.getenv(
+            "ASR_COMPUTE_TYPE", "int8" if self.device == "cpu" else "float16"
+        )
         self._model = None
 
     def _load_model(self):
